@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitops-demo-app
+spec:
+  destination:
+    namespace: default
+    server: 'https://kubernetes.default.svc'  # URL of your Kubernetes API server
+  project: default
+  source:
+    repoURL: 'https://github.com/Satya4410/gitops-demo.git'  # URL of your GitHub repository
+    path: kubernetes
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
