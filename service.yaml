@@ -1,12 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: gitops-demo
+  name: myapp-service
 spec:
-  selector:
-    app: gitops-demo
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: myapp
   type: LoadBalancer
+  
+  

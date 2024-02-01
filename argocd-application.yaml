@@ -3,113 +3,21 @@ kind: Application
 metadata:
   name: gitops-ag
   namespace: argocd
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: >
-      {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"gitops-ag"},"name":"gitops-ag","namespace":"argocd"},"spec":{"destination":{"namespace":"argocd","server":"https://0F39B72AFCB1066EE43277992455A851.gr7.ap-south-1.eks.amazonaws.com"},"project":"default","source":{"path":".","repoURL":"https://github.com/Satya4410/gitops-demo.git","targetRevision":"HEAD"}}}
 spec:
-  destination:
-    namespace: argocd
-    server: 'https://0F39B72AFCB1066EE43277992455A851.gr7.ap-south-1.eks.amazonaws.com'
   project: default
+
   source:
-    path: .
-    repoURL: 'https://github.com/Satya4410/gitops-demo.git'
+    repoURL: https://github.com/Satya4410/gitops-demo.git
     targetRevision: HEAD
-status:
-  controllerNamespace: argocd
-  health:
-    status: Progressing
-  history:
-    - deployStartedAt: '2024-02-01T06:36:11Z'
-      deployedAt: '2024-02-01T06:36:12Z'
-      id: 0
-      revision: 418b0c0002f8f12169138bc8589e7887031fdd71
-      source:
-        path: .
-        repoURL: 'https://github.com/Satya4410/gitops-demo.git'
-        targetRevision: HEAD
-  operationState:
-    finishedAt: '2024-02-01T06:36:12Z'
-    message: successfully synced (all tasks run)
-    operation:
-      initiatedBy:
-        username: admin
-      sync:
-        revision: 418b0c0002f8f12169138bc8589e7887031fdd71
-        syncStrategy:
-          apply: {}
-    phase: Succeeded
-    startedAt: '2024-02-01T06:36:11Z'
-    syncResult:
-      resources:
-        - group: ''
-          hookPhase: Running
-          kind: Service
-          message: service/gitops-demo created
-          name: gitops-demo
-          namespace: argocd
-          status: Synced
-          syncPhase: Sync
-          version: v1
-        - group: apps
-          hookPhase: Running
-          kind: Deployment
-          message: deployment.apps/gitops-demo created
-          name: gitops-demo
-          namespace: argocd
-          status: Synced
-          syncPhase: Sync
-          version: v1
-        - group: argoproj.io
-          hookPhase: Running
-          kind: Application
-          message: "application.argoproj.io/gitops-ag configured. Warning: resource\n  applications/gitops-ag is missing the\n  kubectl.kubernetes.io/last-applied-configuration annotation which is\n  required by  apply.  apply should only be used on resources created\n  declaratively by either  create --save-config or  apply. The missing\n  annotation will be patched automatically."
-          name: gitops-ag
-          namespace: argocd
-          status: Synced
-          syncPhase: Sync
-          version: v1alpha1
-      revision: 418b0c0002f8f12169138bc8589e7887031fdd71
-      source:
-        path: .
-        repoURL: 'https://github.com/Satya4410/gitops-demo.git'
-        targetRevision: HEAD
-  reconciledAt: '2024-02-01T06:47:56Z'
-  resources:
-    - health:
-        status: Healthy
-      kind: Service
-      name: gitops-demo
-      namespace: argocd
-      status: Synced
-      version: v1
-    - group: apps
-      health:
-        message: "Waiting for rollout to finish: 0 of 1 updated replicas are\n  available..."
-        status: Progressing
-      kind: Deployment
-      name: gitops-demo
-      namespace: argocd
-      status: Synced
-      version: v1
-    - group: argoproj.io
-      kind: Application
-      name: gitops-ag
-      namespace: argocd
-      status: OutOfSync
-      version: v1alpha1
-  sourceType: Directory
-  summary:
-    images:
-      - 'satya1175/gitops-demo:latest'
-  sync:
-    comparedTo:
-      destination:
-        namespace: argocd
-        server: 'https://kubernetes.default.svc'
-      source:
-        path: .
-        repoURL: 'https://github.com/Satya4410/gitops-demo.git'
-        targetRevision: HEAD
-    revision: 418b0c0002f8f12169138bc8589e7887031fdd71
-    status: OutOfSync
+    path: dev
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: eksargocd
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
