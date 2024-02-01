@@ -5,7 +5,7 @@ metadata:
 spec:
   destination:
     namespace: default
-    server: 'https://kubernetes.default.svc'  # URL of your Kubernetes API server
+    server: 'https://869A1B0B5F1FDC3F239AB16B12CF9402.gr7.ap-south-1.eks.amazonaws.com'  # URL of your Kubernetes API server
   project: default
   source:
     repoURL: 'https://github.com/Satya4410/gitops-demo.git'  # URL of your GitHub repository
